@@ -1,14 +1,15 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: busyecho
+  name: testvk
   annotations:
-    slurm-job.knoc.io/flags: "--job-name=testcoin"
+    slurm-job.knoc.io/flags: "-A INF22_lhc_0  --job-name=TEST_KNOC -p m100_usr_prod -t 1440 --gres=\"gpu:0\" --cpus-per-task=128"
 spec:
+  restartPolicy: OnFailure 
   containers:
-  - image: argoproj/argosay:v2
+  - image: /cvmfs/unpacked.cern.ch/registry.hub.docker.com/cmssw/el8:ppc64le
     command:
-      - sleep 30
+      - sleep 600
     imagePullPolicy: Always
     name: busyecho
   dnsPolicy: ClusterFirst
@@ -19,5 +20,3 @@ spec:
   tolerations:
   - key: virtual-kubelet.io/provider
     operator: Exists
-  - key: azure.com/aci
-    effect: NoSchedule

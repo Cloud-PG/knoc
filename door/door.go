@@ -33,8 +33,8 @@ const (
 	SUBMIT  = 0
 	STOP    = 1
 	UNKNOWN = 2
-	SBATCH  = "/usr/bin/sbatch"
-	SCANCEL = "/usr/bin/scancel"
+	SBATCH  = "/opt/slurm/current/bin/sbatch"
+	SCANCEL = "/opt/slurm/current/bin/sbatch"
 )
 
 var buildVersion = "dev"

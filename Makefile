@@ -16,7 +16,8 @@ bin/door: BUILD_VERSION          ?= $(shell git describe --tags --always --dirty
 bin/door: BUILD_DATE             ?= $(shell date -u '+%Y-%m-%d-%H:%M UTC')
 bin/door: VERSION_FLAGS    := -ldflags='-X "main.buildVersion=$(BUILD_VERSION)" -X "main.buildTime=$(BUILD_DATE)"'
 bin/door: door/door.go door/types.go
-	CGO_ENABLED=0 go build -ldflags '-extldflags "-static"' -o bin/door $(VERSION_FLAGS) door/door.go door/types.go
+	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags '-extldflags "-static"'  -o bin/door $(VERSION_FLAGS) door/door.go door/types.go
+	GOOS=linux GOARCH=ppc64le CGO_ENABLED=0 go build -ldflags '-extldflags "-static"'  -o bin/door_ppc $(VERSION_FLAGS) door/door.go door/types.go
 
 .PHONY: clean
 clean: files := bin/virtual-kubelet
