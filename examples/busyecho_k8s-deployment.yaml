@@ -1,14 +1,20 @@
-apiVersion: batch/v1
-kind: Job
+apiVersion: apps/v1
+kind: Deployment 
 metadata:
   name: testvk
 spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: testvk
   template:
     metadata:
+      labels:
+        app: testvk
       annotations:
         slurm-job.knoc.io/flags: "-A INF22_lhc_0  --job-name=TEST_KNOC -p m100_usr_prod -t 1440 --gres=\"gpu:0\" --cpus-per-task=128"
     spec:
-      restartPolicy: OnFailure 
+      restartPolicy: Always 
       containers:
       - image: /cvmfs/unpacked.cern.ch/registry.hub.docker.com/cmssw/el8:ppc64le
         command:
@@ -23,4 +29,3 @@ spec:
       tolerations:
       - key: virtual-kubelet.io/provider
         operator: Exists
-  backoffLimit: 4

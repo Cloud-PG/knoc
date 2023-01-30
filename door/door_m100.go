@@ -99,7 +99,7 @@ func prepare_mounts(c DoorContainer) []string {
 	if err != nil {
 		log.Fatalln("Cant create directory spiga")
 	}
-	for _, mount_var := range c.VolumeMounts {
+	for _, mount_var := range c.VolumeMounts
                 f, err := os.Create(".knoc/" + strings.Join(pod_name[:6], "-") + "/" + mount_var.Name)
                 f.WriteString("")
                     if err != nil {
